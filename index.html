@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -140,4 +141,148 @@
 
   <script src="scripts.js"></script>
 </body>
+=======
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  
+  <title>Agenda Digital — Protótipo</title>
+  
+</head>
+<body>
+  <!-- DIV = divisao de pagina -->
+  <div class="app">
+    <header>
+      <div style="flex:1">
+        <h1>Agenda Digital — Protótipo</h1>
+        <div class="topbar" aria-hidden>
+          <button class="btn" id="openCalendar">Ver calendário</button>
+          <button class="btn ghost" id="openLogin">Entrar / Criar conta</button>
+        </div>
+      </div>
+      <div id="topUser" style="text-align:right"></div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar card">
+        <div class="userbox" id="sidebarUser">
+          <div class="avatar" id="avatar">U</div>
+          <div>
+            <div id="userName">Convidado</div>
+            <div style="font-size:12px;color:var(--muted)" id="userEmail">Faça login</div>
+          </div>
+        </div>
+
+        <nav style="margin-top:12px">
+          <div class="item active" data-view="calendar">Calendário</div>
+          <div class="item" data-view="add">Adicionar Evento</div>
+          <div class="item" data-view="export">Exportar (CSV)</div>
+          <div class="item" id="btnLogout">Sair</div>
+        </nav>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+        <div>
+          <h3>Legenda</h3>
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <div style="font-size:12px;color:var(--muted)"><span style="display:inline-block;width:10px;height:10px;background:#f97316;margin-right:6px"></span>Trabalho</div>
+            <div style="font-size:12px;color:var(--muted)"><span style="display:inline-block;width:10px;height:10px;background:#10b981;margin-right:6px"></span>Estudo</div>
+            <div style="font-size:12px;color:var(--muted)"><span style="display:inline-block;width:10px;height:10px;background:#60a5fa;margin-right:6px"></span>Pessoal</div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="card" id="main">
+        <!-- Parte do ccalendario  -->
+        <div id="view-calendar">
+          <div class="calendar-header">
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn" id="prevMonth">‹</button>
+              <button class="btn" id="todayBtn">Hoje</button>
+              <button class="btn" id="nextMonth">›</button>
+              <div style="margin-left:12px;font-weight:600" id="monthLabel"></div>
+            </div>
+            <div>
+              <button class="btn" id="addEventBtn">+ Novo evento</button>
+            </div>
+          </div>
+          <div class="weekdays">
+            <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+          </div>
+          <div class="grid" id="calendarGrid"></div>
+        </div>
+
+        <!-- Adicionar e editar as coisa -->
+        <div id="view-add" style="display:none">
+          <h2>Adicionar / Editar Evento</h2>
+          <form id="eventForm">
+            <input type="hidden" id="eventId">
+            <label>Título</label>
+            <input type="text" id="title" required>
+            <div class="row">
+              <div class="small">
+                <label>Data</label>
+                <input type="date" id="date" required>
+              </div>
+              <div class="small">
+                <label>Hora</label>
+                <input type="time" id="time" required>
+              </div>
+            </div>
+            <label>Categoria</label>
+            <select id="category">
+              <option value="personal">Pessoal</option>
+              <option value="work">Trabalho</option>
+              <option value="study">Estudo</option>
+            </select>
+            <label>Notificação (minutos antes)</label>
+            <input type="text" id="notify" placeholder="Ex: 30 (minutos) — deixar vazio para sem lembrete">
+            <label>Descrição</label>
+            <textarea id="description"></textarea>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn" type="submit">Salvar</button>
+              <button class="btn ghost" type="button" id="cancelEvent">Cancelar</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Exportar os coisa -->
+        <div id="view-export" style="display:none">
+          <h2>Exportar eventos (CSV)</h2>
+          <p style="color:var(--muted)">Exporta apenas os eventos do usuário logado.</p>
+          <div style="margin-top:8px">
+            <button class="btn" id="exportCsv">Exportar CSV</button>
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- Fazer login -->
+  <div id="modalLogin" class="modal" style="display:none">
+    <div class="panel">
+      <h3>Entrar / Criar Conta</h3>
+      <form id="authForm">
+        <label>Nome</label>
+        <input type="text" id="authName" placeholder="Seu nome (apenas no cadastro)">
+        <label>E-mail</label>
+        <input type="email" id="authEmail" required>
+        <label>Senha</label>
+        <input type="text" id="authPassword" required>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn" id="btnLogin" type="button">Entrar</button>
+          <button class="btn" id="btnRegister" type="button">Criar Conta</button>
+          <button class="btn ghost" id="closeAuth" type="button">Fechar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+>>>>>>> 488a0c6f538568ca0457c2f9c60a652d3b997b5c
 </html>
