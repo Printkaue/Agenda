@@ -289,32 +289,32 @@ async function saveEventFromForm(){
 }
 
 // ---------- Exportar eventos em CSV ----------
-document.getElementById('exportCsv').onclick = ()=>{
+document.getElementById('exportCsv').onclick = () => {
   const s = getSession(); 
   if(!s){alert('Faça login');return}
 
   const users = loadUsers();
   const user = users[s.email];
 
-  const header=['id','title','date','time','category','description','notify'];
+  const header = ['id','title','date','time','category','description','notify'];
 
-  const csv = [
-    header.join(',')
-  ].concat(
-    (user.events||[])
-      .map(ev => header.map(h => ('"'+String(ev[h]||'').replace(/"/g,'""')+'"').join(',')))
-  .join('\n'));
+  const rows = (user.events || []).map(ev =>
+    header.map(h => `"${String(ev[h] || '').replace(/"/g, '""')}"`).join(',')
+  );
 
-  const blob = new Blob([csv],{type:'text/csv'});
+  const csv = [header.join(','), ...rows].join('\n');
+
+  const blob = new Blob([csv], { type:'text/csv' });
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement('a');
-  a.href=url;
+  a.href = url;
   a.download = 'agenda_events.csv';
   a.click();
 
   URL.revokeObjectURL(url);
 };
+
 
 // ---------- Notificações ----------
 let scheduledTimers = [];
